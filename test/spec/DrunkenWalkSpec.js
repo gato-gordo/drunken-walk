@@ -1,5 +1,5 @@
 describe("Location", function() {
-	var loc, loc2;
+	var loc, loc2, loc3;
 
   beforeEach(function() {
   	loc  = new Location();
@@ -39,5 +39,21 @@ describe("Location", function() {
  		expect(loc.distFrom(loc)).toEqual(0);
  		expect(loc.distFrom(loc3)).toEqual(Math.sqrt(2));
  	})
+});
+
+describe("Field", function(){
+	var field1;
+
+  beforeEach(function() {
+  	field1 = new Field();
+  });
+
+  it("should be defined", function(){
+  	expect(Field).toBeDefined();
+  });
+
+  it("should be a function", function(){
+  	expect(typeof Field).toEqual("function");
+  });
 });
 
