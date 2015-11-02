@@ -34,24 +34,24 @@ Field.prototype.addDrunk = function(drunk, loc){
     if (drunk in this.drunks){
       throw new RangeError('Duplicate drunk');
     } else {
-      self.drunks[drunk] = loc;
+      this.drunks[drunk] = loc;
     }
 }
         
 Field.prototype.moveDrunk = function(drunk){
-    if( !(drunk in self.drunks) ){
+    if( !(drunk in this.drunks) ){
       throw new RangeError('Drunk not in field')
     }
     var distances			  = drunk.takeStep()
-    var currentLocation = self.drunks[drunk]
-    self.drunks[drunk] 	= currentLocation.move(...distances);
+    var currentLocation = this.drunks[drunk]
+    this.drunks[drunk] 	= currentLocation.move(...distances);
 }
     
 Field.prototype.getLoc = function(drunk){
-    if( !(drunk in self.drunks) ){
+    if( !(drunk in this.drunks) ){
       throw new RangeError('Drunk not in field')
     }
-    return self.drunks[drunk]
+    return this.drunks[drunk]
 }
 
 var Drunk = function(name){
