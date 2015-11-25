@@ -7,7 +7,6 @@ describe("Location", function() {
   	loc3 = new Location(1, 1);
   });
 
-  
   it("should be defined", function() {
     expect(Location).toBeDefined()
   });
@@ -33,12 +32,26 @@ describe("Location", function() {
  		expect(loc2.getY()).toEqual(4);
  	});
 
- 	it("should correctly calculate distance between locations", function(){
- 		expect(loc.distFrom(loc2)).toEqual(5);
- 		expect(loc2.distFrom(loc)).toEqual(5);
- 		expect(loc.distFrom(loc)).toEqual(0);
- 		expect(loc.distFrom(loc3)).toEqual(Math.sqrt(2));
- 	})
+  describe("Location#move", function(){
+    it("return a new location with correctly updated x and y", function(){
+      var newLoc  = loc.move(3, 4);
+      var newLoc2 = loc2.move(-4, -5);
+      expect(newLoc.getX()).toEqual(3);
+      expect(newLoc.getY()).toEqual(4);
+      expect(newLoc2.getX()).toEqual(-1);
+      expect(newLoc2.getY()).toEqual(-1);
+    });
+  });
+
+  describe("Location#distance", function(){
+    it("should correctly calculate distance between locations", function(){
+      expect(loc.distFrom(loc2)).toEqual(5);
+      expect(loc2.distFrom(loc)).toEqual(5);
+      expect(loc.distFrom(loc)).toEqual(0);
+      expect(loc.distFrom(loc3)).toEqual(Math.sqrt(2));
+    });
+  });
+
 });
 
 describe("Field", function(){
@@ -86,12 +99,12 @@ describe("Field", function(){
   	var drunk, loc;
 
   	beforeEach(function(){
-	  	drunk = new Drunk();
+	  	drunk2 = new Drunk();
 			loc   = new Location(1, 1);
   	});
 
   	it("should throw range error when drunk not in field", function(){
-  		expect(field1.moveDrunk.bind(field1, drunk)).toThrowError(RangeError, "Drunk not in field");
+  		expect(field1.moveDrunk.bind(field1, drunk2)).toThrowError(RangeError, "Drunk not in field");
   	});
   });
 
@@ -103,15 +116,12 @@ describe("Drunk", function(){
 		drunk1 = new Drunk();
 		drunk2 = new Drunk("Persephone");
 	});
-
 	it("should initialize Drunk.name to 'Homer' when no name is provided", function(){
 		expect(drunk1.name).toBe("Homer");
 	});
-
 	it("should initialize Drunk.name to the argument passed in to the constructor", function(){
 		expect(drunk2.name).toBe("Persephone");
 	});
-
 	describe("Drunk#toString", function(){
 		var lead = 'This drunk is named ';
 		it("should render the correct string with the right name", function(){
@@ -127,13 +137,11 @@ describe("UsualDrunk", function(){
 		udrunk1 = new UsualDrunk();
 		udrunk2 = new UsualDrunk("Persephone");
 	});
-
 	it("should delegate to Drunk methods", function(){
 		expect(udrunk1.toString).toBeDefined();
 		expect(udrunk1.name).toBe("Homer");  //test calling parent constructor
 		expect(udrunk2.name).toBe("Persephone");
 	});
-
 	it("should have a constructor property set to UsualDrunk", function(){
 		expect(udrunk1.constructor).toEqual(UsualDrunk);
 	});
